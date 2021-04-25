@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kurale&display=swap');
+header {
+    height: 70px;
+    background-color: #325288;
+    color: white;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 50px;
+    padding-top: 10px;
+}
+
+body {
+    background-color: #8ab6d6;
+}
+
+main {
+    width: 95%;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    margin: auto;
+    background-color: white;
+}
+
+.imgAndText {
+    display: grid;
+    grid-template-rows: 400px 1fr;
+    gap: 20px;
+}
+
+#imgContaner {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+img {
+    width: 100%;
+    border: 1px solid #325288;
+    height: 400px;
+    object-fit: cover;
+}
+
+p {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.data {
+    padding: 10px;
+}
+
+li {
+    list-style-type: circle;
+    color: #325288;
+    padding-top: 5px;
+    font-weight: bold;
+    list-style-position: inside;
+}
+
+button {
+    display: block;
+    margin: auto;
+    height: 40px;
+    width: 150px;
+    background-color: #845460;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: black;
+}
+
+footer {
+    height: 70px;
+    background-color: #325288;
+    color: white;
+    margin-top: 20px;
+}
