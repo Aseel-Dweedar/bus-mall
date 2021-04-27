@@ -126,7 +126,7 @@ function handler(event) {
             Sections.all[rightImgCounts].clicks++;
         }
 
-        if (event.target.id === 'rightImage') {
+        if (event.target.id === 'midImg') {
             Sections.all[midImgCounts].clicks++;
         }
 
@@ -159,10 +159,12 @@ view.addEventListener('click', function dataView() {
 
 function chart() {
 
+    let names = [];
     let clicks = [];
     let shown = [];
 
     for (let i = 0; i < Sections.all.length; i++) {
+        names.push(Sections.all[i].name);
         clicks.push(Sections.all[i].clicks);
         shown.push(Sections.all[i].shown);
     }
@@ -171,7 +173,7 @@ function chart() {
     let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: nameArr,
+            labels: names,
             datasets: [{
                     label: 'Clicks',
                     data: clicks,
@@ -199,6 +201,7 @@ function chart() {
 }
 
 //  Backups ////////////////////////////////////////////////////////////////////////////
+
 
 // console.log(Sections.all);
 
