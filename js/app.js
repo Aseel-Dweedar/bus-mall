@@ -45,6 +45,7 @@ let numberOfRounds = 25;
 let rightImgCounts = 0;
 let midImgCounts = 0;
 let leftImgCounts = 0;
+let showTwo = [-1, -1, -1];
 
 // CONSTRUCTOR FUNCTION ////////////////////////////////////////////////////////////////////////////
 
@@ -61,12 +62,24 @@ for (let i = 0; i < nameArr.length; i++) {
     new Sections(nameArr[i]);
 }
 
+// SAVE DATA ////////////////////////////////////////////////////////////////////////
+
+function saveData() {
+    localStorage.setItem('Sections', JSON.stringify(Sections.all));
+}
+
+function getData() {
+    let data = JSON.parse(localStorage.getItem('Sections'));
+    if (data) {
+        Sections.all = data;
+    }
+    render();
+}
+
+getData();
+
 // RENDER FUNCTION ////////////////////////////////////////////////////////////////////////////
 
-
-// let testing = [];
-
-let showTwo = [-1, -1, -1];
 
 function render() {
 
@@ -102,16 +115,9 @@ function render() {
     showTwo[1] = midIndex;
     showTwo[2] = leftIndex;
 
-    showTwo = [rightIndex, midIndex, leftIndex];
-    // testing.push([rightIndex, midIndex, leftIndex]);
     return showTwo;
 }
-
 render();
-
-// console.log(showTwo);
-// console.log(testing);
-
 
 
 //  CLICK LISTENER ////////////////////////////////////////////////////////////////////////////
@@ -120,20 +126,20 @@ imgContaner.addEventListener('click', handler);
 
 
 function handler(event) {
+
     if ((event.target.id === 'rightImg' || event.target.id === 'midImg' || event.target.id === 'leftImg') && clicker < numberOfRounds) {
 
         if (event.target.id === 'rightImg') {
             Sections.all[rightImgCounts].clicks++;
         }
-
         if (event.target.id === 'midImg') {
             Sections.all[midImgCounts].clicks++;
         }
-
         if (event.target.id === 'leftImg') {
             Sections.all[leftImgCounts].clicks++;
         }
         clicker++;
+        saveData();
         render();
     } else {
         chart();
@@ -145,15 +151,18 @@ function handler(event) {
 const view = document.getElementById('view');
 const list = document.getElementById('list');
 
-view.addEventListener('click', function dataView() {
+view.addEventListener('click', dataView);
+
+function dataView() {
+
     for (let i = 0; i < nameArr.length; i++) {
         let item = document.createElement('li');
         list.appendChild(item);
         item.textContent = `${Sections.all[i].name} had ${Sections.all[i].clicks} votes, and was seen ${Sections.all[i].shown} times.`;
     }
-}, {
-    once: true
-});
+    view.removeEventListener('click', dataView);
+}
+view.addEventListener('click', dataView);
 
 //  CHART.JS ////////////////////////////////////////////////////////////////////////////
 
@@ -199,36 +208,3 @@ function chart() {
         }
     });
 }
-
-//  Backups ////////////////////////////////////////////////////////////////////////////
-
-
-// console.log(Sections.all);
-
-// function render() {
-
-//     let rightIndex = randomNumber(0, nameArr.length - 1);
-//     let midIndex;
-//     let leftIndex;
-//     do {
-//         midIndex = randomNumber(0, nameArr.length - 1);
-//     } while (rightIndex === midIndex);
-
-//     do {
-//         leftIndex = randomNumber(0, nameArr.length - 1);
-//     } while (leftIndex === rightIndex || leftIndex === midIndex);
-
-//     rightImg.src = Sections.all[rightIndex].img;
-//     midImg.src = Sections.all[midIndex].img;
-//     leftImg.src = Sections.all[leftIndex].img;
-
-//     rightImgCounts = rightIndex;
-//     midImgCounts = midIndex;
-//     leftImgCounts = leftIndex;
-
-//     Sections.all[rightIndex].shown++;
-//     Sections.all[midIndex].shown++;
-//     Sections.all[leftIndex].shown++;
-
-// }
-// render();
